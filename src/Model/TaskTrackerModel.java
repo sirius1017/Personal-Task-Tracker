@@ -22,6 +22,13 @@ public interface TaskTrackerModel {
   void addTask(Task task) throws IllegalArgumentException;
 
   /**
+   * Get the Task at specified index
+   * @param index the given index
+   * @return the Task at specified index
+   */
+  Task getIndex(int index);
+
+  /**
    * Modify the title of the specified task
    * @param task the specified task needed to be modified
    * @param title the new title

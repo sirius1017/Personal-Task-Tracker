@@ -6,6 +6,7 @@ import Model.Task.Priority;
 import Model.Task.Status;
 import Model.Task.Task;
 import Model.Task.Milestones;
+import Model.Task.TaskImpl;
 import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class TaskTrackerImpl implements TaskTrackerModel, Serializable {
@@ -40,6 +42,11 @@ public class TaskTrackerImpl implements TaskTrackerModel, Serializable {
   public void deleteTask(Task task) {
     taskList.remove(task);
     task.setStatus(Status.DELETED);
+  }
+
+  @Override
+  public Task getIndex(int index){
+    return taskList.get(index);
   }
 
   @Override
@@ -187,5 +194,27 @@ public class TaskTrackerImpl implements TaskTrackerModel, Serializable {
       nameList.add(t.getTitle());
     }
     return nameList;
+  }
+
+  @Override
+  public boolean equals(Object o){
+    if ( !(o instanceof TaskTrackerImpl)){
+      return false;
+    }
+    TaskTrackerImpl x = (TaskTrackerImpl) o;
+    if (this.getNumOfAllTasks() != x.getNumOfAllTasks() ){
+      return false;
+    }
+    for(int i = 0; i< this.getNumOfAllTasks(); i++){
+      if (! this.getIndex(i).equals(x.getIndex(i))){
+        return false;
+      }
+    }
+    return true;
+  }
+
+  @Override
+  public int hashCode(){
+    return Objects.hash(taskList);
   }
 }
