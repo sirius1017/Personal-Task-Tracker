@@ -10,6 +10,8 @@ and edit the task.
 
 `cd src`
 
+`javac PersonalTaskTracker.java`
+
 `java PersonalTaskTracker`
 
 # Project Interface
